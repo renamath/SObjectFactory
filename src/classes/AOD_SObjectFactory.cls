@@ -9,9 +9,10 @@ public abstract class AOD_SObjectFactory {
 
 	public Integer DEFAULT_BULK_RECORDS = 20; // 20 is the minimum amount recommended by Salesforce
 	public String FIELD_INTERATOR = 'Name';
+	public List<SObject> LIST_SOBJECT_FIELD_INTERATOR; // if null use only FIELD_INTERATOR, else use Id of this list + FIELD_INTERATOR
 	
-	protected SObject record {get;set;}
-	protected List<SObject> lRecord {get;set;}
+	private SObject record {get;set;}
+	private List<SObject> lRecord {get;set;}
 
 	public AOD_SObjectFactory(SObject pRecord) {
 		
@@ -30,8 +31,10 @@ public abstract class AOD_SObjectFactory {
 
 	public SObject createRecord() {
 
-		if (record.Id == null)
+		if (record.Id == null) {
 			insert record;
+			//System.debug('record='+JSON.serialize(record));
+		}
 
 		return record;
 	}
@@ -42,10 +45,14 @@ public abstract class AOD_SObjectFactory {
 
 			lRecord = new List<SObject>();
 
-			for (Integer i = 1; i <= DEFAULT_BULK_RECORDS; i++) {
+			for (Integer i = 0; i < DEFAULT_BULK_RECORDS; i++) {
 
 				SObject recordCloned = record.clone();
-				recordCloned.put(FIELD_INTERATOR, record.get(FIELD_INTERATOR) + ' ' +i);
+			
+				if (LIST_SOBJECT_FIELD_INTERATOR == null)
+					recordCloned.put(FIELD_INTERATOR, record.get(FIELD_INTERATOR) + ' ' +i);
+				else recordCloned.put(FIELD_INTERATOR, LIST_SOBJECT_FIELD_INTERATOR.get(i).Id);
+
 				lRecord.add(recordCloned);
 			}
 		}
