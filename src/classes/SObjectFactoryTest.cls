@@ -1,14 +1,14 @@
 /*
- * This class is not required if all methods of the AOD_SObjectFactory class are used
+ * This class is not required if all methods of the SObjectFactory class are used
  */
 @isTest
-private class AOD_SObjectFactoryTest {
-	
+private class SObjectFactoryTest {
+
 	@isTest
 	static void testUnit() {
 
 		TestFactory factory = new TestFactory();
-		
+
 		System.assert(factory.getRecord() != null);
 
 		try {
@@ -30,8 +30,8 @@ private class AOD_SObjectFactoryTest {
 		}
 	}
 
-	public class TestFactory extends AOD_SObjectFactory {
-		
+	public class TestFactory extends SObjectFactory {
+
 		public TestFactory() {
 
 			super(Schema.getGlobalDescribe().get('Contact').newSObject());

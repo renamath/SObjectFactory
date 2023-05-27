@@ -1,5 +1,5 @@
 @isTest
-public class ContactFactory extends AOD_SObjectFactory {
+public class ContactFactory extends SObjectFactory {
 
 	private static Contact staticRecord;
 
@@ -15,7 +15,7 @@ public class ContactFactory extends AOD_SObjectFactory {
 
 		return staticRecord;
 	}
-	
+
 	public ContactFactory() {
 
 		// Call the constructor with parameter Account
@@ -25,7 +25,7 @@ public class ContactFactory extends AOD_SObjectFactory {
 	public ContactFactory(Account pAccount) {
 
 		super(getRecordStatic(pAccount));
-		// Override FIELD_INTERATOR to use LastName instead Name
-		super.FIELD_INTERATOR = 'LastName';
+		// Override fieldInterator to use LastName instead of Name
+		super.setFieldInterator('LastName');
 	}
 }

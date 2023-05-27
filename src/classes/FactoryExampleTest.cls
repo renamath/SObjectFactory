@@ -1,6 +1,6 @@
 @isTest
-private class AOD_FactoryExampleTest {
-	
+private class FactoryExampleTest {
+
 	@isTest
 	static void testUnitCreateAccount() {
 
@@ -11,7 +11,7 @@ private class AOD_FactoryExampleTest {
 
 	@isTest
 	static void testUnitCreateContactWithDefaultValues() {
-		
+
 		// Insert Account with default values before insert Contact
 		Contact con = (Contact) new ContactFactory().createRecord();
 
@@ -27,7 +27,7 @@ private class AOD_FactoryExampleTest {
 
 	@isTest
 	static void testUnitCreateContactWithoutDefaultValues() {
-		
+
 		Account acc = (Account) new AccountFactory().getRecord();
 		acc.Name = 'MyAccountName';
 		insert acc;
@@ -44,7 +44,7 @@ private class AOD_FactoryExampleTest {
 		Account acc2 = (Account) new AccountFactory().createRecord(); // OR getRecord();
 		System.assertEquals('MyAccountName', acc2.Name);
 		// MyAccountName because AccountFactory().createRecord() return the same static record
-		
+
 		Contact con2 = (Contact) new ContactFactory(acc2).createRecord();
 		System.assertEquals('TestLastName', con2.LastName);
 		System.assertEquals('MyAccountName', con2.Account.Name);
@@ -61,7 +61,7 @@ private class AOD_FactoryExampleTest {
 		//---------------------------- WRONG ----------------------------------
 		Account acc = (Account) new AccountFactory().getRecord();
 		acc.Name = 'MyAccountName';
-		
+
 		try {
 			insert acc;
 		} catch (Exception e) {
@@ -69,16 +69,16 @@ private class AOD_FactoryExampleTest {
 			// because acc is alright inserted in the first line: ContactFactory().createRecord()
 		}
 		//------------------------------------------------------------------------
-		
+
 		//---------------------------- CORRECT ----------------------------------
 		Account acc2 = (Account) new AccountFactory().cloneRecord();
 		acc2.Name = 'MyAccountName';
 		insert acc2;
-		
+
 		System.assertEquals('MyAccountName', acc2.Name);
 		// true because AccountFactory().cloneRecord() return a clone of the static record
 		//------------------------------------------------------------------------
-		
+
 		Contact con2 = (Contact) new ContactFactory(acc2).createRecord();
 
 		System.assertEquals('TestLastName', con2.LastName);
@@ -104,7 +104,7 @@ private class AOD_FactoryExampleTest {
 
 		ContactFactory factory = new ContactFactory();
 		// Override the attribute DEFAULT_BULK_RECORDS to create only 10 record instead 20
-		factory.DEFAULT_BULK_RECORDS = 10;
+		factory.setDefaultBulkRecords(10);
 
 		List<Contact> lContact = (List<Contact>) factory.createRecords();
 

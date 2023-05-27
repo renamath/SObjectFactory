@@ -1,5 +1,5 @@
 @isTest
-public class AccountFactory extends AOD_SObjectFactory {
+public class AccountFactory extends SObjectFactory {
 
 	private static Account staticRecord;
 
@@ -15,12 +15,12 @@ public class AccountFactory extends AOD_SObjectFactory {
 	}
 
 	public AccountFactory() {
-		
+
 		super(getRecordStatic());
 	}
 
-	/* If you do not want to be doing casting in your test class, uncomment the code below
-	
+	/* If you don't want to do casting in your test class, uncomment the code below
+
 	//now use createAccount intead createRecord
 	public Account createAccount() {
 
