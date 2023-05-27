@@ -68,4 +68,12 @@ public abstract class SObjectFactory {
 
 		return this.records;
 	}
+
+	public void setFieldInterator(String pFieldName) {
+		this.fieldInterator = pFieldName;
+	}
+
+	public void setDefaultBulkRecords(Integer pDefaultBulkRecords) {
+		this.defaultBulkRecords = pDefaultBulkRecords;
+	}
 }
